@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {storeProducts,detailProduct} from './data'
+import jsPDF from 'jspdf'
 const ProductContext=React.createContext();
 
 class ProductProvider extends Component{
@@ -83,7 +84,7 @@ class ProductProvider extends Component{
     removeItemHandler=(id)=>{
         let tempProducts=[...this.state.products];
         let tempCart =[...this.state.cart];
-        tempCart=tempCart.filter(item=>item.id!=id);
+        tempCart=tempCart.filter(item=>item.id!==id);
         const index=tempProducts.indexOf(this.getItem(id));
         let removedProduct=tempProducts[index];
         removedProduct.inCart=false;
@@ -108,7 +109,18 @@ class ProductProvider extends Component{
         const total=subTotal+tax;
         this.setState({cartSubTotal:subTotal,cartTax:tax,cartTotal:total})
     }
-
+    printPdfHandler=()=>{
+       let doc =new jsPDF('p','pt')
+       const invoice= (<div id="content">
+               {this.state.products}
+              <div>{this.state.cart}
+              </div>
+              <div id="elementH"></div>
+             </div>)
+             const invoiceString= JSON.stringify(invoice);
+             doc.text(20,20,invoiceString)
+             doc.save("generated.pdf")
+    }
     render(){
         return(
             <ProductContext.Provider value={{
@@ -120,7 +132,8 @@ class ProductProvider extends Component{
             incrementHandler:this.incrementHandler,
             decrementHandler:this.decrementHandler,
             removeItemHandler:this.removeItemHandler,
-            clearCartHandler:this.clearCartHandler
+            clearCartHandler:this.clearCartHandler,
+            printPdfHandler:this.printPdfHandler
             }}>
                 {this.props.children}
             </ProductContext.Provider>

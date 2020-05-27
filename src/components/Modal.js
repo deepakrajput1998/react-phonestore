@@ -3,6 +3,7 @@ import React ,{Component} from 'react';
  import {ProductConsumer} from '../context';
  import {ButtonContainer} from './Button'
   import {Link} from 'react-router-dom'
+  import Backdrop from './UI/Backdrop'
  class Modal extends Component{
     render(){
         return(
@@ -12,10 +13,12 @@ import React ,{Component} from 'react';
                 const {modalOpen,closeModalHandler}=value;
                const {img,title,price}=value.modalProduct;
               if(!modalOpen){
-                  return null;
+               return <Backdrop show={modalOpen} clicked={closeModalHandler} />
+                   
               }
               else{
-              return(<ModalContainer>
+              return(
+                      <ModalContainer>
                       <div className='container'>
                           <div className='row'>
                               <div 

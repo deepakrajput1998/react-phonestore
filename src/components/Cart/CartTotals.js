@@ -1,8 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import PaypalButton from './PaypalButton'
+import jsPDF from 'jspdf';
+import  {ButtonContainer} from '../Button'
 const CartTotals =(props)=>{
-const {cartSubTotal,cartTax,cartTotal,clearCartHandler}=props.value
+const {cartSubTotal,printPdfHandler,cartTax,cartTotal,clearCartHandler}=props.value
  return ( <React.Fragment>
       <div className='container'>
           <div className ='row'>
@@ -24,7 +26,9 @@ const {cartSubTotal,cartTax,cartTotal,clearCartHandler}=props.value
                   <h5> <span className='text-title'> total:</span>
                     <strong>Rs {cartTotal}</strong>
                   </h5>
+                  <ButtonContainer onClick={()=>printPdfHandler()}>Generate Pdf</ButtonContainer >
                 <PaypalButton total={cartTotal} clearCart={clearCartHandler} history={props.history}/>
+               
               </div>
           </div>
       </div>

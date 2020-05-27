@@ -1,0 +1,10 @@
+Customer - id name address city
+Invoice - invoice id cus id total amount paid amount rem comments
+Invoice Dectails - invoice id productdetails - id qty value total value tax taxvalue discounts commnts
+
+
+Anuj - Unpaid invoice 
+total dues : $400
+print all invoice 
+HTML template - (page physical)
+print - browser print dialgue 
